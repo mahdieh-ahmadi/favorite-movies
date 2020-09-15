@@ -1,5 +1,38 @@
 var i=1;
 var id;
+
+let keys = []
+
+var initialData = () => {
+    $(".mainlist").empty() 
+    keys = []
+    if(localStorage.length !== 0){
+        $(".titleBeforeAdd").css("display","none");
+    }else{
+        $(".titleBeforeAdd").css("display","block");
+    }
+    for(let i=0 ; i< localStorage.length ; i++){
+        keys.push(localStorage.key(i))
+    }
+    for(let i in keys){
+        let fetchData = JSON.parse(localStorage.getItem(keys[i]))
+        const newchild = document.createElement('li')
+        newchild.className = "movies"
+        newchild.id = `list${keys[i]}`
+        newchild.innerHTML = `<img src="${fetchData.url}" alt="${fetchData.name}">
+        <h2>${fetchData.name}</h2>
+        <div>  ${fetchData.rate}/5 stars </div>`
+
+        $(".mainlist").append(newchild);
+
+        newchild.addEventListener('click' , () => {
+            deletBox(keys[i])
+        })
+    
+    }
+    
+}
+
 var ShowBlack = () => {
  $(".blackBack").toggleClass("visible");
  $(".ListAdd").removeClass("visible");
@@ -12,7 +45,6 @@ var showAdd = () => {
 }
 
 var saveData = () => {
-    //var name = document.querySelector('.name').textContent;
     var name = $(".Name").val();
     var url = $(".Url").val();
     var rate= $(".rate").val();
@@ -25,43 +57,30 @@ var saveData = () => {
         return
     }
     ++i;
-    $(".mainlist").append(`
-    <li class="movies" id="list${i}">
-         <img src="${url}" alt="${name}">
-            <h2>${name}</h2>
-            <div>  ${rate}/5 stars </div>
-    </li>`
-    );
-    
-   /*  $("ul.list > li").click(function() {
-        id = $(this).id;
-        console.log(id);
-        deletBox();
-    }
-    ); */
-    
-    $("#list" + i).click(
-        deletBox
-    );
-
+    JSON.localStorage
+    localStorage.setItem(`${name}${i}${Math.random()}` ,  JSON.stringify({
+        name : name,
+        url : url,
+        rate : rate
+    }))
+    initialData()
     ShowBlack();
     $(".titleBeforeAdd").css("display","none");
 };
 
-var deletBox = () => {
+var deletBox = i => {
+    id = i
     $(".listDelete").toggleClass("visible");
     $(".blackBack").toggleClass("visible");
 };
 
-var delet = () => {
-    $("#list"+i).replaceWith('');
+var delet = i => {
+    localStorage.removeItem(i)
     ShowBlack();
-    i--;
-    if(i==1){
-        $('.titleBeforeAdd').css('display','block');
-    }
+    initialData()
 }
 
+initialData()
 $(".Add").click(
     showAdd
 );
@@ -76,8 +95,7 @@ $(".addbtn").click(
 );
 $(".cancleDelete").click(
     ShowBlack
-
 );
-$(".doDelete").click(
-    delet
+$(".doDelete").click(() => {
+    delet(id)}
 );
