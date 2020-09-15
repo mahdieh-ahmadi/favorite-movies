@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Movie</title>
+    <script src="javascript/jquery.js" defer></script>
+    <script src="javascript/app.js" defer></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="main">
+        
+        <div class="header">
+            <button class="Add"> Add Movie</button>
+            <header>Favorite Movie</header>
+        </div>
+        <div >
+            <ul class="mainlist">
+                <!--<li class="movies">
+                    <img src="img3.jpg" alt="">
+                    <h2>Movie</h2>
+                    <div>  5/5 stars </div>
+                </li>-->
+               
+            </ul>
+        </div>
+        <div class="titleBeforeAdd">
+            <h1>Your personal movie database! </h1>
+        </div>
+        <div class="blackBack"></div>
+        <div class="ListAdd">
+            <label for=""> Movie Title </label>
+            <input type="text" placeholder="Name of movie" class="Name">
+            <label for=""> Image URL </label>
+            <input type="text" placeholder="URL of movie" class="Url">
+            <label for=""> Your Rating </label>
+            <input type="number" placeholder="Rate of movie" class="rate">
+            <button class="btn cancelbtn">cancel</button>
+            <button class="btn addbtn">Add</button>
+        </div>
+        <div class="listDelete">
+           <h1 class="dcisionDelet"> Are you sure?</h1>
+           <p> Are you sure you want to delete this item?This action can't be made undone!</p>
+           <button class="btn cancleDelete">NO (cancel)</button>
+           <button class="btn doDelete">Yes</button>
+        </div>
+       
+    </div>
+</body>
+</html>
